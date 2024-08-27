@@ -173,23 +173,53 @@ export const buttonColors = cluster(Object.values(mantineColors), 10)
 	.slice(2)
 	.map((colors) => colors.slice(4));
 
+export interface Color {
+	hueIndex: number;
+	toneIndex: number;
+	color?: string;
+}
+
 export function getColor(
 	startHue: number,
 	startTone: number,
 	pattern: number[][],
-	colors: string[][]
+	colors: string[][] = buttonColors
 ) {
 	const hues = colors.length;
 	const tones = colors[0].length;
 	let currentHue = startHue;
 	let currentTone = startTone;
-	const selectedColors = [colors[currentHue][currentTone]];
+	let currentColor = colors[currentHue][currentTone];
+	const selectedColors: Color[] = [
+		{ hueIndex: currentHue, toneIndex: currentTone, color: currentColor }
+	];
 
 	for (let i = 0; i < pattern.length; i++) {
 		currentHue = (currentHue + pattern[i][0] + hues) % hues;
 		currentTone = (currentTone + pattern[i][1] + tones) % tones;
-		selectedColors.push(colors[currentHue][currentTone]);
+		currentColor = colors[currentHue][currentTone];
+		selectedColors.push({
+			hueIndex: currentHue,
+			toneIndex: currentTone,
+			color: currentColor
+		});
 	}
 
 	return selectedColors;
+}
+
+export function getPattern(colorList: Color[]) {
+	const result = colorList
+		.map((current, i, arr) => {
+			if (i === arr.length - 1) {
+				return [];
+			}
+			const { hueIndex, toneIndex } = current;
+			const next = arr[i + 1];
+
+			return [next.hueIndex - hueIndex, next.toneIndex - toneIndex];
+		})
+		.slice(0, -1);
+	console.log(result);
+	return result;
 }

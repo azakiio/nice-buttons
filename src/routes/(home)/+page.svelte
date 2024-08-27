@@ -1,13 +1,25 @@
-<script>
+<script lang="ts">
 	import { colorMode } from '$lib/colorMode.svelte';
 	import Icon from '@iconify/svelte';
 	import ColorPicker from './ColorPicker.svelte';
+	import { getColor, type Color } from '$lib/colors';
 
-	let controls = $state({
+	let controls = $state<{
+		textColor: string;
+		angle: string;
+		size: number;
+		colorList: Color[];
+		position: string;
+		positionHover: string;
+	}>({
 		textColor: 'white',
 		angle: 'bottom right',
 		size: 400,
-		colorList: [],
+		colorList: getColor(5, 3, [
+			[1, 0],
+			[1, 0],
+			[1, 0]
+		]),
 		position: '0% 0%',
 		positionHover: '100% 100%'
 	});
@@ -15,6 +27,45 @@
 	let textContent = $state('Book a Consultation');
 	let subTextContent = $state('no credit card required');
 	let isUppercase = $state(true);
+
+	const patterns = [
+		{
+			name: 'line-x',
+			icon: 'mdi:horizontal-line',
+			pattern: [
+				[1, 0],
+				[1, 0],
+				[1, 0]
+			]
+		},
+		{
+			name: 'diamond',
+			icon: 'mdi:diamond',
+			pattern: [
+				[1, -1],
+				[-1, -1],
+				[-1, 1]
+			]
+		},
+		{
+			name: 'box',
+			icon: 'mdi:square',
+			pattern: [
+				[0, -2],
+				[2, 0],
+				[0, 2]
+			]
+		},
+		{
+			name: 'right and back',
+			icon: 'mdi:square',
+			pattern: [
+				[1, 0],
+				[1, 0],
+				[-3, -1]
+			]
+		}
+	];
 
 	const cssString = `
 .brand-gradient {
@@ -88,7 +139,7 @@
 	const generateStyleString = () => {
 		const styleString = `background-image: linear-gradient(
 			to ${controls.angle},
-      ${controls.colorList.join(',')}
+      ${controls.colorList.map((item) => item.color).join(', ')}
 		);
 		color: ${controls.textColor};
     background-size: ${controls.size}% ${controls.size}%;

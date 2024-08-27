@@ -1,56 +1,16 @@
 <script lang="ts">
-	interface Color {
-		colorList: string[];
-		range?: { start?: number; end?: number };
+	interface Props {
+		colorList: Color[];
 	}
 
-	import { buttonColors, getColor } from '$lib/colors';
-	let { colorList = $bindable() }: Color = $props();
-	let usePattern = $state(false);
-	let step = $state(0);
+	import { buttonColors, getColor, getPattern, type Color } from '$lib/colors';
+	let { colorList = $bindable() }: Props = $props();
+	let pattern = $state(getPattern(colorList));
 	let currentDrag = $state(-1);
 
 	$effect(() => {
-		console.log(colorList, step);
+		pattern = getPattern(colorList);
 	});
-
-	let pattern = [
-		[3, 3],
-		[1, 0],
-		[-3, -3]
-	];
-	let pattern2 = [
-		[0, 1],
-		[3, 0],
-		[0, -1]
-	];
-
-	// function makePatternDraggable() {
-	// 	const spans = document.querySelectorAll('.draggable');
-
-	// 	spans.forEach((span) => {
-	// 		span.addEventListener('dragstart', (e) => {
-	// 			console.log('dragstart');
-	// 			e.target.id;
-	// 			e.dataTransfer.setData('text/plain', e.target.innerText);
-	// 		});
-
-	// 		span.addEventListener('dragenter', (e) => {
-	// 			console.log(e.target.id);
-	// 			e.target.style.backgroundColor = 'black';
-	// 		});
-
-	// 		span.addEventListener('drop', (e) => {
-	// 			e.preventDefault();
-	// 			console.log('dropped');
-
-	// 			console.log(e.dataTransfer.getData('text/plain'));
-	// 		});
-	// 	});
-	// }
-	// $effect(() => {
-	// 	makePatternDraggable();
-	// });
 </script>
 
 <div
@@ -71,7 +31,7 @@
 					}}
 					ondragenter={(e) => {
 						if (currentDrag !== -1) {
-							colorList[currentDrag] = color;
+							colorList[currentDrag] = { hueIndex, toneIndex, color };
 						}
 					}}
 					ondragover={(e) => {
@@ -81,17 +41,16 @@
 						console.log('dropped');
 					}}
 					onclick={() => {
-						if (usePattern) {
-							colorList = getColor(hueIndex, toneIndex, pattern2, buttonColors);
+						if (colorList.length === 4) {
+							colorList = getColor(hueIndex, toneIndex, pattern, buttonColors);
 						} else {
-							colorList[step] = color;
-							step = (step + 1) % 4;
+							colorList.push({ hueIndex, toneIndex, color });
 						}
 					}}
 					class="draggable w-8 h-8 ring-white hover:scale-110 hover:ring-2 hover:z-100 group relative"
-					class:ring-2={colorList.includes(color)}
-					class:z-99={colorList.includes(color)}
-					class:hover:cursor-grab={colorList.includes(color)}
+					class:ring-2={colorList.some((item) => item.color === color)}
+					class:z-99={colorList.some((item) => item.color === color)}
+					class:hover:cursor-grab={colorList.some((item) => item.color === color)}
 					style="background-color: {color}"
 				>
 					<!-- <div
@@ -99,11 +58,15 @@
 					>
 						{step + 1}
 					</div> -->
-					{#if colorList.includes(color)}
-						{colorList.indexOf(color) + 1}
+					{#if colorList.some((item) => item.color === color)}
+						{colorList.findIndex((item) => item.color === color) + 1}
 					{/if}
 				</button>
 			{/each}
 		</div>
 	{/each}
 </div>
+
+<button onclick={() => navigator.clipboard.writeText(JSON.stringify(pattern))}>
+	{JSON.stringify(pattern)}
+</button>
