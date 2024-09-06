@@ -3,22 +3,22 @@ export const directions = [
   {
     name: 'top left',
     positions: [1, 1, 0, 0],
-    icon: 'carbon:arrow-up-left'
+    icon: 'hugeicons-arrow-up-left-01'
   },
   {
     name: 'top',
     positions: [1, 1, 0, 0],
-    icon: 'carbon:arrow-up'
+    icon: 'hugeicons:arrow-up-02'
   },
   {
     name: 'top right',
     positions: [0, 1, 1, 0],
-    icon: 'carbon:arrow-up-right'
+    icon: 'hugeicons:arrow-up-right-01'
   },
   {
     name: 'left',
     positions: [1, 1, 0, 0],
-    icon: 'carbon:arrow-left'
+    icon: 'hugeicons:arrow-left-02'
   },
   {
     name: 'reset',
@@ -28,30 +28,39 @@ export const directions = [
   {
     name: 'right',
     positions: [0, 0, 1, 1],
-    icon: 'carbon:arrow-right'
+    icon: 'hugeicons:arrow-right-02'
   },
   {
     name: 'bottom left',
     positions: [1, 0, 0, 1],
-    icon: 'carbon:arrow-down-left'
+    icon: 'hugeicons:arrow-down-left-01'
   },
   {
     name: 'bottom',
     positions: [0, 0, 1, 1],
-    icon: 'carbon:arrow-down'
+    icon: 'hugeicons:arrow-down-02'
   },
   {
     name: 'bottom right',
     positions: [0, 0, 1, 1],
-    icon: 'carbon:arrow-down-right'
+    icon: 'hugeicons:arrow-down-right-01'
   }
 ];
 
 
 export const patterns = [
   {
-    name: 'line-x',
-    icon: 'mdi:horizontal-line',
+    name: 'box',
+    icon: 'hugeicons:square',
+    pattern: [
+      [0, -2],
+      [2, 0],
+      [0, 2]
+    ]
+  },
+  {
+    name: 'line',
+    icon: 'hugeicons:arrow-right-02',
     pattern: [
       [1, 0],
       [1, 0],
@@ -60,7 +69,7 @@ export const patterns = [
   },
   {
     name: 'diamond',
-    icon: 'mdi:diamond',
+    icon: 'hugeicons:diamond',
     pattern: [
       [1, -1],
       [-1, -1],
@@ -68,23 +77,33 @@ export const patterns = [
     ]
   },
   {
-    name: 'box',
-    icon: 'mdi:square',
+    name: 'sweep',
+    icon: 'hugeicons:arrow-move-up-right',
     pattern: [
-      [0, -2],
-      [2, 0],
-      [0, 2]
+      [0, -1],
+      [1, -1],
+      [1, 0]
     ]
   },
   {
-    name: 'right and back',
-    icon: 'mdi:square',
+    name: 'camel',
+    icon: 'hugeicons:camel',
+    pattern: [
+      [1, -1],
+      [1, 0],
+      [1, 1]
+    ]
+  },
+  {
+    name: 'tetris',
+    icon: 'arcticons:tetris',
     pattern: [
       [1, 0],
-      [1, 0],
-      [-3, -1]
+      [0, -1],
+      [1, 1]
     ]
-  }
+  },
+
 ];
 
 export const cssString = `

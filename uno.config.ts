@@ -62,7 +62,7 @@ export default defineConfig({
 			layout: 'grid px-4 py-12 max-w-4xl mx-auto',
 			btn: 'flex gap-2 items-center py-2 px-4 font-medium rounded-lg whitespace-nowrap transition-property-transform duration-[0.3s] hover:-translate-y-1 justify-center disabled:opacity-50 will-change-transform cursor-pointer active:scale-95',
 			input:
-				'flex w-full rounded-md border-2 px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus:outline-none focus:ring-3 focus:ring-primary-4/10 disabled:opacity-50 bg-transparent',
+				'flex w-full rounded-md border-2 px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus:outline-none focus:ring-3 focus:ring-primary-4/50 disabled:opacity-50 bg-transparent border-current',
 			'card-shadow': 'shadow-primary/15 shadow-[-0.5em_0.5em_0.2em]'
 		},
 		[/^variant-(.*)$/, ([, c]) => `bg-${c} text-${c}-content `]

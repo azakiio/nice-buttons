@@ -14,9 +14,9 @@
 </script>
 
 <div>
-	<div class="font-bold">Colors:</div>
+	<div class="font-bold mb-1">Colors:</div>
 	<div
-		class="grid grid-flow-col z-99 shadow-xl border-2 border-base-content rounded-lg overflow-hidden w-fit"
+		class="grid grid-flow-col grid-cols-12 z-99 shadow-xl border-2 border-base-content rounded-lg overflow-hidden w-full mb-2"
 	>
 		{#each buttonColors as hues, hueIndex}
 			<div class="flex flex-col">
@@ -49,7 +49,7 @@
 								colorList.push({ hueIndex, toneIndex, color });
 							}
 						}}
-						class="draggable w-8 h-8 ring-white hover:scale-110 hover:ring-2 hover:z-100 group relative"
+						class="draggable w-full aspect-square ring-white hover:scale-110 hover:ring-2 hover:z-100 group relative text-white"
 						class:ring-2={colorList.some((item) => item.color === color)}
 						class:z-99={colorList.some((item) => item.color === color)}
 						class:hover:cursor-grab={colorList.some((item) => item.color === color)}
@@ -70,8 +70,8 @@
 	</div>
 
 	<p>
-		Click on a starting color and take the pattern with you, or drag the numbers to form your own
-		pattern.
+		Choose a starting color above and a pattern below.
+		<br /> You can also drag the numbers to make your own pattern.
 	</p>
 </div>
 <!-- 

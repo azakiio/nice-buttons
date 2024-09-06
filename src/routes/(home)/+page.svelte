@@ -2,11 +2,10 @@
 	import { colorMode } from '$lib/colorMode.svelte';
 	import { getColor, type Color } from '$lib/colors';
 	import Icon from '@iconify/svelte';
+	import 'highlight.js/styles/github.css';
 	import { isEqual } from 'radash';
 	import ColorPicker from './ColorPicker.svelte';
 	import { directions, patterns } from './constants';
-	import hljs from 'highlight.js';
-	import 'highlight.js/styles/github.css';
 
 	let controls = $state<{
 		textColor: string;
@@ -55,23 +54,24 @@
 			isCopied = false;
 		}, 2000);
 	};
-	// $effect(() => {
-	// 	console.log(document.getElementById('css-code'));
-	// 	hljs.highlightElement(document.getElementById('css-code')!);
-	// });
+
+	const tagline = 'Generate beautiful gradient hover effects';
 </script>
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<meta name="description" content={tagline} />
 </svelte:head>
 
 <section class="grid md:grid-cols-2">
-	<h1 class="col-span-full">nice buttons</h1>
+	<hgroup class="col-span-full mb-4 text-center">
+		<h1 class="font-bold">Nice buttons</h1>
+		<p class="text-base-content/50">{tagline}</p>
+	</hgroup>
 
 	<button
 		onclick={copyToClipboard}
-		class="btn brand-gradient flex-col gap-0 py-3 shadow-lg place-self-center relative"
+		class="btn brand-gradient flex-col gap-0 py-3 shadow-lg place-self-center relative my-12"
 		style={`${generateStyleString()}`}
 	>
 		<div
@@ -94,7 +94,7 @@
 
 	<div class="grid gap-4 p-4">
 		<label>
-			<div class="font-bold">Text:</div>
+			<div class="font-bold mb-1">Text:</div>
 			<div class="grid grid-flow-col gap-2">
 				<input type="text" class="input" bind:value={textContent} />
 				<button class="btn bg-base-2 p-1 rounded-full w-10 h-10">
@@ -107,7 +107,7 @@
 			</div>
 		</label>
 		<label>
-			<div class="font-bold">Subtext:</div>
+			<div class="font-bold mb-1">Subtext:</div>
 			<input type="text" class="input" bind:value={subTextContent} />
 		</label>
 
@@ -116,7 +116,7 @@
 		<div class="grid grid-cols-2 gap-4">
 			<div>
 				<div class="font-bold mb-2">Patterns:</div>
-				<div class="flex flex-col gap-2 items-start">
+				<div class="flex flex-wrap gap-2 items-start">
 					{#each patterns as pattern}
 						<button
 							class="btn bg-base-2"
@@ -131,7 +131,6 @@
 							}}
 						>
 							<Icon icon={pattern.icon} class="w-6 h-6" />
-							{pattern.name}
 						</button>
 					{/each}
 				</div>
@@ -172,8 +171,11 @@
 		</div>
 	</div>
 
-	<pre id="css-code" class="col-span-full p-4 rounded-lg">
+	<pre id="css-code" class="col-span-full px-4 -py-4 rounded-lg bg-base-1">
 	{`
+/* Currently, adding syntax highlighting stops this code-block from being reactive.
+I'm working on this. */
+
 .brand-gradient { 
   ${generateStyleString()} 
   background-position: var(--position);
@@ -182,7 +184,7 @@
   
 .brand-gradient:hover {
   background-position: var(--position-hover); 
-  translate: 0 -10px;
+  translate: 0 -0.25rem;
 }`}
 	</pre>
 </section>
@@ -194,9 +196,7 @@
 
 	.brand-gradient {
 		background-position: var(--position);
-		transition:
-			background-position 0.7s,
-			transform 0.5s;
+		transition: background-position 0.7s, translate 0.5s;
 	}
 	.brand-gradient:hover {
 		background-position: var(--position-hover);
