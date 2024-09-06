@@ -1,154 +1,64 @@
 <script lang="ts">
 	import { colorMode } from '$lib/colorMode.svelte';
-	import Icon from '@iconify/svelte';
-	import ColorPicker from './ColorPicker.svelte';
 	import { getColor, type Color } from '$lib/colors';
+	import Icon from '@iconify/svelte';
+	import { isEqual } from 'radash';
+	import ColorPicker from './ColorPicker.svelte';
+	import { directions, patterns } from './constants';
+	import hljs from 'highlight.js';
+	import 'highlight.js/styles/github.css';
 
 	let controls = $state<{
 		textColor: string;
 		angle: string;
 		size: number;
 		colorList: Color[];
+		pattern: number[][];
 		position: string;
 		positionHover: string;
 	}>({
 		textColor: 'white',
 		angle: 'bottom right',
 		size: 400,
-		colorList: getColor(5, 3, [
-			[1, 0],
-			[1, 0],
-			[1, 0]
-		]),
+		colorList: getColor(6, 4, patterns[0].pattern),
+		pattern: patterns[0].pattern,
 		position: '0% 0%',
 		positionHover: '100% 100%'
 	});
 
-	let textContent = $state('Book a Consultation');
+	let textContent = $state('Click to copy Styles');
 	let subTextContent = $state('no credit card required');
 	let isUppercase = $state(true);
-
-	const patterns = [
-		{
-			name: 'line-x',
-			icon: 'mdi:horizontal-line',
-			pattern: [
-				[1, 0],
-				[1, 0],
-				[1, 0]
-			]
-		},
-		{
-			name: 'diamond',
-			icon: 'mdi:diamond',
-			pattern: [
-				[1, -1],
-				[-1, -1],
-				[-1, 1]
-			]
-		},
-		{
-			name: 'box',
-			icon: 'mdi:square',
-			pattern: [
-				[0, -2],
-				[2, 0],
-				[0, 2]
-			]
-		},
-		{
-			name: 'right and back',
-			icon: 'mdi:square',
-			pattern: [
-				[1, 0],
-				[1, 0],
-				[-3, -1]
-			]
-		}
-	];
-
-	const cssString = `
-.brand-gradient {
-  background-image: linear-gradient(
-    135deg,
-    oklch(var(--s)),
-    oklch(var(--p)),
-    oklch(var(--a)),
-    rgb(251 146 60)
-  );
-  color: oklch(var(--pc));
-  background-size: 400% 400%;
-  background-position: 0% 0%;
-  transition: background-position 1s, transform 0.5s;
-
-  &:hover {
-    background-position: 100% 100%;
-  }
-}`;
+	let isCopied = $state(false);
 
 	const themeManager = colorMode();
 
-	const directions = [
-		{
-			name: 'top left',
-			positions: [1, 1, 0, 0],
-			icon: 'carbon:arrow-up-left'
-		},
-		{
-			name: 'top',
-			positions: [1, 1, 0, 0],
-			icon: 'carbon:arrow-up'
-		},
-		{
-			name: 'top right',
-			positions: [0, 1, 1, 0],
-			icon: 'carbon:arrow-up-right'
-		},
-		{
-			name: 'left',
-			positions: [1, 1, 0, 0],
-			icon: 'carbon:arrow-left'
-		},
-		{
-			name: 'reset',
-			positions: [0, 0, 1, 1],
-			icon: 'carbon:dot'
-		},
-		{
-			name: 'right',
-			positions: [0, 0, 1, 1],
-			icon: 'carbon:arrow-right'
-		},
-		{
-			name: 'bottom left',
-			positions: [1, 0, 0, 1],
-			icon: 'carbon:arrow-down-left'
-		},
-		{
-			name: 'bottom',
-			positions: [0, 0, 1, 1],
-			icon: 'carbon:arrow-down'
-		},
-		{
-			name: 'bottom right',
-			positions: [0, 0, 1, 1],
-			icon: 'carbon:arrow-down-right'
-		}
-	];
-
 	const generateStyleString = () => {
 		const styleString = `background-image: linear-gradient(
-			to ${controls.angle},
-      ${controls.colorList.map((item) => item.color).join(', ')}
-		);
-		color: ${controls.textColor};
-    background-size: ${controls.size}% ${controls.size}%;
-    --position: ${controls.position};
-    --position-hover: ${controls.positionHover};
-    `;
+    to ${controls.angle},
+    ${controls.colorList.map((item) => item.color).join(',\n\t')}
+  );
+  color: ${controls.textColor};
+  background-size: ${controls.size}% ${controls.size}%;
+  --position: ${controls.position};
+  --position-hover: ${controls.positionHover};`;
 
 		return styleString;
 	};
+
+	const copyToClipboard = () => {
+		if (isCopied) return;
+		const text = document.getElementById('css-code')?.innerText;
+		navigator.clipboard.writeText(text || '');
+		isCopied = true;
+		setTimeout(() => {
+			isCopied = false;
+		}, 2000);
+	};
+	// $effect(() => {
+	// 	console.log(document.getElementById('css-code'));
+	// 	hljs.highlightElement(document.getElementById('css-code')!);
+	// });
 </script>
 
 <svelte:head>
@@ -157,12 +67,22 @@
 </svelte:head>
 
 <section class="grid md:grid-cols-2">
-	<h1 class="col-span-full">sexy cta</h1>
+	<h1 class="col-span-full">nice buttons</h1>
 
 	<button
-		class="btn brand-gradient flex-col gap-0 py-3 shadow-lg place-self-center"
+		onclick={copyToClipboard}
+		class="btn brand-gradient flex-col gap-0 py-3 shadow-lg place-self-center relative"
 		style={`${generateStyleString()}`}
 	>
+		<div
+			class="absolute bottom-[125%] flex items-center gap-2"
+			style="translate: 0 {isCopied ? 0 : 200}%; opacity: {isCopied ? 1 : 0}; 
+    transition-property: translate, opacity; transition-duration: 0.3s;"
+		>
+			<Icon icon="carbon:copy" class="w-6 h-6" />
+			Copied!
+		</div>
+
 		<div
 			class="text-lg font-bold leading-normal"
 			style="text-transform: {isUppercase ? 'uppercase' : 'none'};"
@@ -191,44 +111,80 @@
 			<input type="text" class="input" bind:value={subTextContent} />
 		</label>
 
-		<ColorPicker bind:colorList={controls.colorList} />
+		<ColorPicker bind:colorList={controls.colorList} bind:pattern={controls.pattern} />
 
-		<div class="grid grid-cols-3 place-items-center w-fit gap-2">
-			{#each directions as direction}
-				{#if direction.name === 'reset'}
-					<button
-						class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
-						onclick={() => themeManager.setTheme(themeManager.theme === 'light' ? 'dark' : 'light')}
-					>
-						<Icon
-							icon={themeManager.theme === 'light' ? 'carbon:asleep' : 'carbon:awake'}
-							class="w-full h-full"
-						/>
-					</button>
-				{:else}
-					<button
-						class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
-						class:bg-primary-4={controls.angle === direction.name}
-						onclick={() => {
-							controls.angle = direction.name;
-							controls.position = `${direction.positions[0] * 100}% ${direction.positions[1] * 100}% `;
-							controls.positionHover = `${direction.positions[2] * 100}% ${direction.positions[3] * 100}% `;
-						}}><Icon icon={direction.icon} class="w-full h-full" /></button
-					>
-				{/if}
-			{/each}
+		<div class="grid grid-cols-2 gap-4">
+			<div>
+				<div class="font-bold mb-2">Patterns:</div>
+				<div class="flex flex-col gap-2 items-start">
+					{#each patterns as pattern}
+						<button
+							class="btn bg-base-2"
+							class:bg-primary-4={isEqual(controls.pattern.flat(), pattern.pattern.flat())}
+							onclick={() => {
+								controls.pattern = pattern.pattern;
+								controls.colorList = getColor(
+									controls.colorList[0].hueIndex,
+									controls.colorList[0].toneIndex,
+									pattern.pattern
+								);
+							}}
+						>
+							<Icon icon={pattern.icon} class="w-6 h-6" />
+							{pattern.name}
+						</button>
+					{/each}
+				</div>
+			</div>
+			<div class="grid grid-cols-3 place-items-center w-fit gap-2">
+				<div class="font-bold col-span-full justify-self-start mb-2">Behavior:</div>
+				{#each directions as direction}
+					{#if direction.name === 'reset'}
+						<button
+							class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
+							onclick={() =>
+								themeManager.setTheme(themeManager.theme === 'light' ? 'dark' : 'light')}
+						>
+							<Icon
+								icon={themeManager.theme === 'light' ? 'carbon:asleep' : 'carbon:awake'}
+								class="w-full h-full"
+							/>
+						</button>
+					{:else}
+						<button
+							class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
+							class:bg-primary-4={controls.angle === direction.name}
+							onclick={() => {
+								controls.angle = direction.name;
+								controls.position = `${direction.positions[0] * 100}% ${direction.positions[1] * 100}% `;
+								controls.positionHover = `${direction.positions[2] * 100}% ${direction.positions[3] * 100}% `;
+							}}><Icon icon={direction.icon} class="w-full h-full" /></button
+						>
+					{/if}
+				{/each}
+
+				<label class="col-span-full">
+					Size:
+					{controls.size}
+					<input type="range" bind:value={controls.size} min="100" max="800" step="25" />
+				</label>
+			</div>
 		</div>
-
-		<label>
-			Size:
-			{controls.size}
-			<input type="range" bind:value={controls.size} min="100" max="800" step="25" />
-		</label>
 	</div>
 
-	<pre>
-    {cssString}
-  </pre>
+	<pre id="css-code" class="col-span-full p-4 rounded-lg">
+	{`
+.brand-gradient { 
+  ${generateStyleString()} 
+  background-position: var(--position);
+  transition: background-position 0.7s, translate 0.5s; 
+} 
+  
+.brand-gradient:hover {
+  background-position: var(--position-hover); 
+  translate: 0 -10px;
+}`}
+	</pre>
 </section>
 
 <style>

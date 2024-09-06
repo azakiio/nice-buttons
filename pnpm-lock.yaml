@@ -11,6 +11,12 @@ importers:
       '@iconify/svelte':
         specifier: ^4.0.2
         version: 4.0.2(svelte@5.0.0-next.221)
+      '@speed-highlight/core':
+        specifier: ^1.2.6
+        version: 1.2.6
+      highlight.js:
+        specifier: ^11.10.0
+        version: 11.10.0
       radash:
         specifier: ^12.1.0
         version: 12.1.0
@@ -63,6 +69,9 @@ importers:
       prettier-plugin-svelte:
         specifier: ^3.2.6
         version: 3.2.6(prettier@3.3.3)(svelte@5.0.0-next.221)
+      proper-tags:
+        specifier: ^2.0.2
+        version: 2.0.2
       svelte:
         specifier: 5.0.0-next.221
         version: 5.0.0-next.221
@@ -699,6 +708,9 @@ packages:
     resolution: {integrity: sha512-aJ1EJSuTdGnM6qbVC4B5DSmozPTqIag9fSzXRNNo+humQLG89XpPgdt16Ia56ORD7s+H8Pmyx44uczDQ0yDzpg==}
     cpu: [x64]
     os: [win32]
+
+  '@speed-highlight/core@1.2.6':
+    resolution: {integrity: sha512-kzS2W5fLGz2wcmA+4JoMlw3eglj2NqYTdzU/Db1P9phIJ20glYFW4tGpPRfpqP08qEn2H0NV9/7E8kh5/iaTgQ==}
 
   '@sveltejs/adapter-auto@3.2.4':
     resolution: {integrity: sha512-a64AKYbfTUrVwU0xslzv1Jf3M8bj0IwhptaXmhgIkjXspBXhD0od9JiItQHchijpLMGdEDcYBlvqySkEawv6mQ==}
@@ -1442,6 +1454,10 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
+  highlight.js@11.10.0:
+    resolution: {integrity: sha512-SYVnVFswQER+zu1laSya563s+F8VDGt7o35d4utbamowvUNLLMovFqwCLSocpZTz3MgaSRA1IbqRWZv97dtErQ==}
+    engines: {node: '>=12.0.0'}
+
   human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
@@ -1935,6 +1951,10 @@ packages:
     resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
     engines: {node: '>=14'}
     hasBin: true
+
+  proper-tags@2.0.2:
+    resolution: {integrity: sha512-rpgQb3JC9uWAogm9J3G6heeg7n/Gq82GZKaFt080JPVbydKvGW6ECj9Ui1a6taTFv9Oa+dq9GMhHeOJyxxaURA==}
+    engines: {node: '>=12.0.0'}
 
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
@@ -2830,6 +2850,8 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.20.0':
     optional: true
 
+  '@speed-highlight/core@1.2.6': {}
+
   '@sveltejs/adapter-auto@3.2.4(@sveltejs/kit@2.5.22(@sveltejs/vite-plugin-svelte@4.0.0-next.6(svelte@5.0.0-next.221)(vite@5.4.0(lightningcss@1.26.0)))(svelte@5.0.0-next.221)(vite@5.4.0(lightningcss@1.26.0)))':
     dependencies:
       '@sveltejs/kit': 2.5.22(@sveltejs/vite-plugin-svelte@4.0.0-next.6(svelte@5.0.0-next.221)(vite@5.4.0(lightningcss@1.26.0)))(svelte@5.0.0-next.221)(vite@5.4.0(lightningcss@1.26.0))
@@ -3704,6 +3726,8 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
+  highlight.js@11.10.0: {}
+
   human-signals@2.1.0: {}
 
   ignore@5.3.2: {}
@@ -4098,6 +4122,8 @@ snapshots:
       svelte: 5.0.0-next.221
 
   prettier@3.3.3: {}
+
+  proper-tags@2.0.2: {}
 
   punycode@2.3.1: {}
 

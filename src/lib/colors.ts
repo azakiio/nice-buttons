@@ -171,7 +171,7 @@ export const mantineColors = {
 
 export const buttonColors = cluster(Object.values(mantineColors), 10)
 	.slice(2)
-	.map((colors) => colors.slice(4));
+	.map((colors) => colors.slice(4)).reverse();
 
 export interface Color {
 	hueIndex: number;
