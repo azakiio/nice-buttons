@@ -90,7 +90,7 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>Nice Buttons</title>
 	<meta name="description" content={tagline} />
 </svelte:head>
 
@@ -208,10 +208,7 @@
 		<Highlight language="css" code={css} header="The Styles" />
 		<div class="flex flex-col gap-2">
 			<h2 class="text-xl font-bold">How does this work?</h2>
-			<p>
-				We just have a gradient background that is
-				larger than the button.
-			</p>
+			<p>We just have a gradient background that is larger than the button.</p>
 			<p>On hover, we transition the <code>background-position</code></p>
 			<button
 				class="w-50 h-50 rounded-lg relative mx-auto my-4"
@@ -227,7 +224,10 @@
 					button
 				</div>
 			</button>
-      <p>Depending on the angle wee want to gradient come in from, we sometimes need to adjust the initial and final <code>background-position</code></p>
+			<p>
+				Depending on the angle wee want to gradient come in from, we sometimes need to adjust the
+				initial and final <code>background-position</code>
+			</p>
 		</div>
 	</div>
 </section>
