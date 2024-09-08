@@ -227,6 +227,7 @@
 					button
 				</div>
 			</button>
+      <p>Depending on the angle wee want to gradient come in from, we sometimes need to adjust the initial and final <code>background-position</code></p>
 		</div>
 	</div>
 </section>

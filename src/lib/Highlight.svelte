@@ -25,10 +25,10 @@
 </script>
 
 <div
-	class="bg-base-1 rounded-lg text-base-content relative overflow-hidden shadow-lg"
+	class="bg-base-2 rounded-lg text-base-content relative overflow-hidden shadow-lg"
 	data-theme="dark"
 >
-	<div class="flex justify-between p-3 border-b items-center border-base-content/40">
+	<div class="flex justify-between p-3 items-center bg-base-1">
 		{#if header}
 			<div class="font-bold text-lg">{header}</div>
 		{/if}
@@ -41,5 +41,5 @@
 			{/if}
 		</button>
 	</div>
-	<pre class="p-4"><code class="language-{language}">{@html codeHTML}</code></pre>
+	<pre class="p-3"><code class="language-{language}">{@html codeHTML}</code></pre>
 </div>
