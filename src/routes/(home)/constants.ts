@@ -1,3 +1,4 @@
+import type { Color } from "$lib/colors";
 
 export const directions = [
   {
@@ -96,31 +97,47 @@ export const patterns = [
   },
   {
     name: 'tetris',
-    icon: 'arcticons:tetris',
+    icon: 'hugeicons:tetris',
     pattern: [
       [1, 0],
       [0, -1],
       [1, 1]
     ]
   },
+  {
+    name: 'joker',
+    icon: 'hugeicons:joker',
+    pattern: [
+      [-1, -3],
+      [4, 1],
+      [-1, 2]
+    ]
+  },
 
 ];
 
-export const cssString = `
-.brand-gradient {
-background-image: linear-gradient(
-  135deg,
-  oklch(var(--s)),
-  oklch(var(--p)),
-  oklch(var(--a)),
-  rgb(251 146 60)
-);
-color: oklch(var(--pc));
-background-size: 400% 400%;
-background-position: 0% 0%;
-transition: background-position 1s, transform 0.5s;
-
-&:hover {
-  background-position: 100% 100%;
+type Controls = {
+  textColor: string;
+  angle: string;
+  size: number;
+  colorList: Color[];
+  pattern: number[][];
+  position: string;
+  positionHover: string;
 }
+
+export const cssString = ({ angle, colorList, textColor, position, size, positionHover }: Controls) => `.brand-gradient {
+  background-image: linear-gradient(
+    to ${angle},
+    ${colorList.map((c) => c.color).join(',')}
+  );
+  color: ${textColor};
+  background-size: ${size}% ${size}%;
+  background-position: ${position};
+  transition: background-position 0.7s, translate 0.5s;
+
+  &:hover {
+    translate: 0 -0.25rem;
+    background-position: ${positionHover};
+  }
 }`;

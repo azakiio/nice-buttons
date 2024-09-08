@@ -70,8 +70,8 @@
 	</div>
 
 	<p>
-		Choose a starting color above and a pattern below.
-		<br /> You can also drag the numbers to make your own pattern.
+		Choose a <b>starting color</b> above and a <b>pattern</b> below.
+		<br /> You can also <b>drag</b> the numbers to make your own pattern.
 	</p>
 </div>
 <!-- 
