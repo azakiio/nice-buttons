@@ -129,7 +129,7 @@ type Controls = {
 export const cssString = ({ angle, colorList, textColor, position, size, positionHover }: Controls) => `.brand-gradient {
   background-image: linear-gradient(
     to ${angle},
-    ${colorList.map((c) => c.color).join(',')}
+    ${colorList.map((c) => c.color).join(', ')}
   );
   color: ${textColor};
   background-size: ${size}% ${size}%;
