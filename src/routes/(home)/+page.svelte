@@ -103,7 +103,7 @@
 	<div class="grid md:grid-cols-2 mb-24">
 		<button
 			onclick={copyToClipboard}
-			class="grid px-4 rounded-lg brand-gradient flex-col gap-0 py-3 shadow-lg place-self-center relative my-12 place-items-center"
+			class="grid px-4 rounded-lg brand-gradient flex-col gap-0 py-3 shadow-lg place-self-center relative my-12 place-items-center  plausible-event-name=Styles+Copied"
 			style={`${generateStyleString()}`}
 		>
 			<div
