@@ -197,7 +197,7 @@
 					<div class="flex flex-wrap gap-2 items-start">
 						{#each patterns as pattern}
 							<button
-								class="btn bg-base-2"
+								class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
 								class:bg-primary-4={isEqual(controls.pattern.flat(), pattern.pattern.flat())}
 								class:text-primary-content={isEqual(
 									controls.pattern.flat(),
@@ -211,7 +211,7 @@
 										pattern.pattern
 									);
 								}}>
-								<Icon icon={pattern.icon} class="w-6 h-6" />
+								<Icon icon={pattern.icon} class="w-full h-full" />
 							</button>
 						{/each}
 					</div>

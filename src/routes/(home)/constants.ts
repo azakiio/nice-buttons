@@ -124,12 +124,12 @@ export const patterns = [
     ]
   },
   {
-    name: 'joker',
-    icon: 'hugeicons:joker',
+    name: 'wave',
+    icon: 'ph:wave-sine-bold',
     pattern: [
-      [-1, -3],
-      [4, 1],
-      [-1, 2]
+      [1, -1],
+      [2, 2],
+      [1, -1]
     ]
   },
 
