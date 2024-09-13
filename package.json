@@ -40,7 +40,9 @@
 		"@fontsource-variable/public-sans": "^5.0.19",
 		"@iconify/svelte": "^4.0.2",
 		"@speed-highlight/core": "^1.2.6",
+		"@types/culori": "^2.1.1",
 		"@types/prismjs": "^1.26.4",
+		"culori": "^4.0.1",
 		"prismjs": "^1.29.0",
 		"radash": "^12.1.0"
 	}

@@ -16,8 +16,7 @@
 <div>
 	<div class="font-bold mb-1">Colors:</div>
 	<div
-		class="grid grid-flow-col grid-cols-12 z-99 shadow-xl border-2 border-base-content rounded-lg overflow-hidden w-full mb-2"
-	>
+		class="grid grid-flow-col grid-cols-10 z-99 shadow-xl border-2 border-base-content rounded-lg overflow-hidden w-full mb-2">
 		{#each buttonColors as hues, hueIndex}
 			<div class="flex flex-col">
 				{#each hues as color, toneIndex}
@@ -39,9 +38,6 @@
 						ondragover={(e) => {
 							e.preventDefault();
 						}}
-						ondrop={(e) => {
-							console.log('dropped');
-						}}
 						onclick={() => {
 							if (colorList.length === 4) {
 								colorList = getColor(hueIndex, toneIndex, pattern, buttonColors);
@@ -53,13 +49,7 @@
 						class:ring-2={colorList.some((item) => item.color === color)}
 						class:z-99={colorList.some((item) => item.color === color)}
 						class:hover:cursor-grab={colorList.some((item) => item.color === color)}
-						style="background-color: {color}"
-					>
-						<!-- <div
-          class="opacity-0 group-hover:opacity75 absolute bg-black/20 w-full h-full z-10 inset-0 grid place-items-center pointer-events-none"
-					>
-          {step + 1}
-					</div> -->
+						style="background-color: {color}">
 						{#if colorList.some((item) => item.color === color)}
 							{colorList.findIndex((item) => item.color === color) + 1}
 						{/if}

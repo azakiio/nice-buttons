@@ -3,15 +3,16 @@
 	import { getColor } from '$lib/colors';
 	import Highlight from '$lib/Highlight.svelte';
 	import Icon from '@iconify/svelte';
+	import { wcagContrast } from 'culori';
 	import { isEqual } from 'radash';
 	import ColorPicker from './ColorPicker.svelte';
 	import { cssString, directions, durations, patterns, sizes, type Controls } from './constants';
 
 	let controls = $state<Controls>({
-		textColor: 'white',
+		textColor: '#fff',
 		angle: 'bottom right',
 		size: 3,
-		colorList: getColor(7, 4, patterns[0].pattern),
+		colorList: getColor(2, 2, patterns[0].pattern),
 		pattern: patterns[0].pattern,
 		position: '0% 0%',
 		positionHover: '100% 100%',
@@ -93,6 +94,16 @@
 		return returnString;
 	});
 	let demo_styles = $state(getStyles());
+
+	const calcContrast = () => {
+		let avgContrast = 0;
+		controls.colorList.forEach((color) => {
+			if (color.color) {
+				avgContrast += wcagContrast(color.color, controls.textColor);
+			}
+		});
+		return avgContrast / controls.colorList.length;
+	};
 </script>
 
 <svelte:head>
@@ -137,6 +148,9 @@
 				<Icon icon="carbon:copy" class="w-6 h-6" />
 				Copied!
 			</div>
+			<!-- <div>
+				{calcContrast()}
+			</div> -->
 			<button
 				onclick={copyToClipboard}
 				class="grid px-4 rounded-lg brand-gradient py-3 shadow-lg relative justify-self-center plausible-event-name=Styles+Copied"
@@ -146,7 +160,7 @@
 					style="text-transform: {isUppercase ? 'uppercase' : 'none'};">
 					{textContent}
 				</div>
-				<div style="color: oklch(from {controls.textColor} l c h / 0.6)">{subTextContent}</div>
+				<div style="color: oklch(from {controls.textColor} l c h / 0.7)">{subTextContent}</div>
 			</button>
 			<button
 				class="btn bg-base-2 w-14 h-14 p-3 rounded-full"

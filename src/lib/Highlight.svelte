@@ -26,18 +26,16 @@
 
 <div
 	class="bg-base-2 rounded-lg text-base-content relative overflow-hidden shadow-lg"
-	data-theme="dark"
->
+	data-theme="dark">
 	<div class="flex justify-between p-3 items-center bg-base-1">
 		{#if header}
 			<div class="font-bold text-lg">{header}</div>
 		{/if}
-		<button class="btn bg-primary-4 text-primary-content" onclick={copyToClipboard} disabled={isCopied}>
+		<button class="btn" onclick={copyToClipboard} disabled={isCopied}>
 			{#if isCopied}
 				Copied!
 			{:else}
-				Copy!
-				<Icon icon="carbon:copy" class="w-4 h-4" />
+				<Icon icon="solar:copy-linear" class="w-6 h-6" />
 			{/if}
 		</button>
 	</div>

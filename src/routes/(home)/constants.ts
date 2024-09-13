@@ -50,13 +50,23 @@ export const directions = [
 
 
 export const patterns = [
+
+  {
+    name: 'dashed-line',
+    icon: 'hugeicons:dashed-line-01',
+    pattern: [
+      [2, 0],
+      [2, 0],
+      [2, 0]
+    ]
+  },
   {
     name: 'box',
     icon: 'hugeicons:square',
     pattern: [
-      [0, -2],
+      [0, 2],
       [2, 0],
-      [0, 2]
+      [0, -2]
     ]
   },
   {
@@ -69,12 +79,12 @@ export const patterns = [
     ]
   },
   {
-    name: 'diamond',
-    icon: 'hugeicons:diamond',
+    name: 'down-right',
+    icon: 'hugeicons:arrow-move-down-right',
     pattern: [
-      [1, -1],
-      [-1, -1],
-      [-1, 1]
+      [0, 1],
+      [1, 1],
+      [1, 0]
     ]
   },
   {
@@ -102,6 +112,15 @@ export const patterns = [
       [1, 0],
       [0, -1],
       [1, 1]
+    ]
+  },
+  {
+    name: 'checkmark',
+    icon: 'iconamoon:check',
+    pattern: [
+      [1, 1],
+      [1, -1],
+      [1, -1]
     ]
   },
   {
