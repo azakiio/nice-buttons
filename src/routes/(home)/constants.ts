@@ -116,7 +116,38 @@ export const patterns = [
 
 ];
 
-type Controls = {
+export const sizes = [
+  {
+    name: '1x',
+    value: 1
+  },
+  {
+    name: '2x',
+    value: 2
+  },
+  {
+    name: '3x',
+    value: 3
+  },
+  {
+    name: '4x',
+    value: 4
+  },
+  {
+    name: '5x',
+    value: 5
+  }
+];
+
+export const durations = [
+  { name: 'sprint', icon: 'mdi:flash', value: 0.5 },
+  { name: 'steady', icon: 'mdi:rabbit', value: 0.7 },
+  { name: 'cruise', icon: 'mdi:horse', value: 1 },
+  { name: 'turtle', icon: 'mdi:turtle', value: 1.3 },
+  { name: 'snail', icon: 'mdi:snail', value: 1.5 }
+];
+
+export type Controls = {
   textColor: string;
   angle: string;
   size: number;
@@ -124,17 +155,20 @@ type Controls = {
   pattern: number[][];
   position: string;
   positionHover: string;
+  duration: number;
 }
 
-export const cssString = ({ angle, colorList, textColor, position, size, positionHover }: Controls) => `.brand-gradient {
+export const cssString = ({ angle, colorList, textColor, position, size, positionHover, duration }: Controls) => `.brand-gradient {
   background-image: linear-gradient(
     to ${angle},
     ${colorList.map((c) => c.color).join(', ')}
   );
   color: ${textColor};
-  background-size: ${size}% ${size}%;
+  background-size: ${size * 100}% ${size * 100}%;
   background-position: ${position};
-  transition: background-position 0.7s, translate 0.5s;
+  transition: 
+    background-position 0.7s,
+    translate ${duration}s;
 
   &:hover {
     translate: 0 -0.25rem;

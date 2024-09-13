@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@fontsource-variable/public-sans':
+        specifier: ^5.0.19
+        version: 5.0.19
       '@iconify/svelte':
         specifier: ^4.0.2
         version: 4.0.2(svelte@5.0.0-next.221)
@@ -17,9 +20,6 @@ importers:
       '@types/prismjs':
         specifier: ^1.26.4
         version: 1.26.4
-      highlight.js:
-        specifier: ^11.10.0
-        version: 11.10.0
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
@@ -549,6 +549,9 @@ packages:
   '@eslint/object-schema@2.1.4':
     resolution: {integrity: sha512-BsWiH1yFGjXXS2yvrf5LyuoSIIbPrGUWob917o+BTKuZ7qJdxX8aJLRxs1fS9n6r7vESrq1OUqb68dANcFXuQQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fontsource-variable/public-sans@5.0.19':
+    resolution: {integrity: sha512-Tc1V139visg0xUgSe2vQy86OwHEGb0dO57vcrD6Cw2vDRf42sZ4fD7nTuY0Q0AjVNemT7RicmkR9qnB/MfJ6ug==}
 
   '@fontsource/fira-mono@5.0.13':
     resolution: {integrity: sha512-fZDjR2BdAqmauEbTjcIT62zYzbOgDa5+IQH34D2k8Pxmy1T815mAqQkZciWZVQ9dc/BgdTtTUV9HJ2ulBNwchg==}
@@ -1392,10 +1395,6 @@ packages:
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
-
-  highlight.js@11.10.0:
-    resolution: {integrity: sha512-SYVnVFswQER+zu1laSya563s+F8VDGt7o35d4utbamowvUNLLMovFqwCLSocpZTz3MgaSRA1IbqRWZv97dtErQ==}
-    engines: {node: '>=12.0.0'}
 
   human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
@@ -2559,6 +2558,8 @@ snapshots:
 
   '@eslint/object-schema@2.1.4': {}
 
+  '@fontsource-variable/public-sans@5.0.19': {}
+
   '@fontsource/fira-mono@5.0.13': {}
 
   '@humanwhocodes/module-importer@1.0.1': {}
@@ -3507,8 +3508,6 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
-
-  highlight.js@11.10.0: {}
 
   human-signals@2.1.0: {}
 

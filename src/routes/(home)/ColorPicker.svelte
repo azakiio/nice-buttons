@@ -69,12 +69,8 @@
 		{/each}
 	</div>
 
-	<p>
+	<p class="text-lg">
 		Choose a <b>starting color</b> above and a <b>pattern</b> below.
 		<br /> You can also <b>drag</b> the numbers to make your own pattern.
 	</p>
 </div>
-<!-- 
-      <button onclick={() => navigator.clipboard.writeText(JSON.stringify(pattern))}>
-        {JSON.stringify(pattern)}
-</button> -->

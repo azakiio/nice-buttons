@@ -32,7 +32,7 @@
 		{#if header}
 			<div class="font-bold text-lg">{header}</div>
 		{/if}
-		<button class="btn bg-primary-4 text-primary-0" onclick={copyToClipboard} disabled={isCopied}>
+		<button class="btn bg-primary-4 text-primary-content" onclick={copyToClipboard} disabled={isCopied}>
 			{#if isCopied}
 				Copied!
 			{:else}

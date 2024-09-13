@@ -1,16 +1,20 @@
 export const colorMode = () => {
-	let theme = $state('dark');
+  let theme = $state('light');
 
-	const setTheme = (newTheme: string) => {
-		document.cookie = `theme=${newTheme}; path=/; max-age=31536000`;
-		document.documentElement.dataset.theme = newTheme;
-		theme = newTheme;
-	};
+  $effect(() => {
+    theme = document.documentElement.dataset.theme || 'light';
+  })
 
-	return {
-		get theme() {
-			return theme;
-		},
-		setTheme
-	};
+  const setTheme = (newTheme: string) => {
+    document.cookie = `theme=${newTheme}; path=/; max-age=31536000`;
+    document.documentElement.dataset.theme = newTheme;
+    theme = newTheme;
+  };
+
+  return {
+    get theme() {
+      return theme;
+    },
+    setTheme,
+  };
 };

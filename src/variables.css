@@ -258,7 +258,7 @@
 	--p7: var(--color-orange-7);
 	--p8: var(--color-orange-8);
 	--p9: var(--color-orange-9);
-	--pc: var(--color-orange-0);
+	--pc: var(--color-dark-9);
 
 	--neutral: oklch(from var(--n) l c h / <alpha-value>);
 	--neutral-content: oklch(from var(--nc) l c h / <alpha-value>);
@@ -277,17 +277,17 @@
 }
 
 [data-theme='dark'] {
-	--b0: var(--color-gray-9);
-	--b1: var(--color-gray-8);
-	--b2: var(--color-gray-7);
-	--b3: var(--color-gray-6);
-	--b4: var(--color-gray-5);
-	--b5: var(--color-gray-4);
-	--b6: var(--color-gray-3);
-	--b7: var(--color-gray-2);
-	--b8: var(--color-gray-1);
-	--b9: var(--color-gray-0);
-	--bc: var(--color-gray-0);
+	--b0: var(--color-dark-9);
+	--b1: var(--color-dark-8);
+	--b2: var(--color-dark-7);
+	--b3: var(--color-dark-6);
+	--b4: var(--color-dark-5);
+	--b5: var(--color-dark-4);
+	--b6: var(--color-dark-3);
+	--b7: var(--color-dark-2);
+	--b8: var(--color-dark-1);
+	--b9: var(--color-dark-0);
+	--bc: var(--color-gray-2);
 }
 
 /* 

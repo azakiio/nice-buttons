@@ -1,29 +1,21 @@
 <script lang="ts">
 	import { colorMode } from '$lib/colorMode.svelte';
-	import { getColor, type Color } from '$lib/colors';
+	import { getColor } from '$lib/colors';
+	import Highlight from '$lib/Highlight.svelte';
 	import Icon from '@iconify/svelte';
-	import 'highlight.js/styles/github.css';
 	import { isEqual } from 'radash';
 	import ColorPicker from './ColorPicker.svelte';
-	import { cssString, directions, patterns } from './constants';
-	import Highlight from '$lib/Highlight.svelte';
+	import { cssString, directions, durations, patterns, sizes, type Controls } from './constants';
 
-	let controls = $state<{
-		textColor: string;
-		angle: string;
-		size: number;
-		colorList: Color[];
-		pattern: number[][];
-		position: string;
-		positionHover: string;
-	}>({
+	let controls = $state<Controls>({
 		textColor: 'white',
 		angle: 'bottom right',
-		size: 400,
-		colorList: getColor(6, 4, patterns[0].pattern),
+		size: 3,
+		colorList: getColor(7, 4, patterns[0].pattern),
 		pattern: patterns[0].pattern,
 		position: '0% 0%',
-		positionHover: '100% 100%'
+		positionHover: '100% 100%',
+		duration: 1
 	});
 
 	let textContent = $state('Click to copy Styles');
@@ -37,11 +29,12 @@
 		const styleString = `background-image: linear-gradient(
     to ${controls.angle},
     ${controls.colorList.map((item) => item.color).join(',\n\t')}
-  );
-  color: ${controls.textColor};
-  background-size: ${controls.size}% ${controls.size}%;
-  --position: ${controls.position};
-  --position-hover: ${controls.positionHover};`;
+    );
+    color: ${controls.textColor};
+    background-size: ${controls.size * 100}% ${controls.size * 100}%;
+    --position: ${controls.position};
+    --position-hover: ${controls.positionHover};
+    --duration: ${controls.duration}s;`;
 
 		return styleString;
 	};
@@ -57,8 +50,9 @@
 	};
 
 	const css = $derived(cssString(controls));
-
+	const title = 'Nice Buttons';
 	const tagline = 'Generate beautiful gradient hover effects';
+	const image = '/meta.png';
 
 	const getStyles = () => {
 		const [x, y] = controls.position.split(' ');
@@ -86,45 +80,84 @@
 			.join(' ');
 	};
 
+	const button_width = 80;
+	const demoButtonStyles = $derived.by(() => {
+		let returnString = '';
+		returnString += `background-image: linear-gradient(to ${controls.angle}, 
+    ${controls.colorList.map((item) => item.color).join(',\n\t')});`;
+
+		returnString += `width: ${button_width * controls.size}px;`;
+		returnString += `height: ${(button_width * controls.size) / 2}px;`;
+		returnString += `transition: width 0.5s, height 0.5s;`;
+
+		return returnString;
+	});
 	let demo_styles = $state(getStyles());
 </script>
 
 <svelte:head>
-	<title>Nice Buttons</title>
+	<title>{title}</title>
 	<meta name="description" content={tagline} />
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://www.nicebuttons.com/" />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={tagline} />
+	<meta property="og:image" content={image} />
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="twitter:url" content="https://www.nicebuttons.com/" />
+	<meta property="twitter:title" content={title} />
+	<meta property="twitter:description" content={tagline} />
+	<meta property="twitter:image" content={image} />
 </svelte:head>
 
-<section class="grid">
-	<hgroup class="col-span-full mb-4 text-center">
-		<h1 class="font-bold">Nice buttons</h1>
-		<p class="text-base-content/50">{tagline}</p>
+<section class="grid my-14">
+	<hgroup class="col-span-full mb-8 text-center">
+		<h1
+			class="font-extrabold bg-clip-text text-transparent uppercase tracking-wider"
+			style="background-image: linear-gradient(to right, {controls.colorList
+				.map((item) => item.color)
+				.join(',')});">
+			{title}
+		</h1>
+		<p class="text-lg text-base-content/70">{tagline}</p>
 	</hgroup>
 
-	<div class="grid md:grid-cols-2 mb-24">
-		<button
-			onclick={copyToClipboard}
-			class="grid px-4 rounded-lg brand-gradient flex-col gap-0 py-3 shadow-lg place-self-center relative my-12 place-items-center  plausible-event-name=Styles+Copied"
-			style={`${generateStyleString()}`}
-		>
+	<div class="grid md:grid-cols-2">
+		<div
+			class="grid md:sticky md:top-40 my-12 md:my-24 self-start place-items-center relative gap-4">
 			<div
-				class="absolute bottom-[125%] flex items-center gap-2"
-				style="translate: 0 {isCopied ? 0 : 200}%; opacity: {isCopied ? 1 : 0}; 
-    transition-property: translate, opacity; transition-duration: 0.3s;"
-			>
+				class="absolute top-0 flex items-center gap-2"
+				style="translate: 0 {isCopied ? -200 : 0}%; opacity: {isCopied
+					? 1
+					: 0}; transition-property: translate, opacity; transition-duration: 0.3s;">
 				<Icon icon="carbon:copy" class="w-6 h-6" />
 				Copied!
 			</div>
+			<button
+				onclick={copyToClipboard}
+				class="grid px-4 rounded-lg brand-gradient py-3 shadow-lg relative justify-self-center plausible-event-name=Styles+Copied"
+				style={`${generateStyleString()}`}>
+				<div
+					class="text-lg font-bold leading-normal"
+					style="text-transform: {isUppercase ? 'uppercase' : 'none'};">
+					{textContent}
+				</div>
+				<div style="color: oklch(from {controls.textColor} l c h / 0.6)">{subTextContent}</div>
+			</button>
+			<button
+				class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
+				onclick={() => themeManager.setTheme(themeManager.theme === 'light' ? 'dark' : 'light')}>
+				<Icon
+					icon={themeManager.theme === 'light' ? 'carbon:asleep' : 'carbon:awake'}
+					class="w-full h-full" />
+			</button>
+		</div>
 
-			<div
-				class="text-lg font-bold leading-normal"
-				style="text-transform: {isUppercase ? 'uppercase' : 'none'};"
-			>
-				{textContent}
-			</div>
-			<div style="color: oklch(from {controls.textColor} l c h / 0.6)">{subTextContent}</div>
-		</button>
-
-		<div class="grid gap-4 p-4">
+		<div class="grid gap-4">
 			<label>
 				<div class="font-bold mb-1">Text:</div>
 				<div class="grid grid-flow-col gap-2">
@@ -133,8 +166,7 @@
 						<Icon
 							icon="material-symbols:uppercase"
 							onclick={() => (isUppercase = !isUppercase)}
-							class="w-full h-full"
-						/>
+							class="w-full h-full" />
 					</button>
 				</div>
 			</label>
@@ -145,7 +177,7 @@
 
 			<ColorPicker bind:colorList={controls.colorList} bind:pattern={controls.pattern} />
 
-			<div class="grid sm:grid-cols-2 gap-4">
+			<div class="grid sm:grid-cols-2 gap-4 mb-20">
 				<div>
 					<div class="font-bold mb-2">Patterns:</div>
 					<div class="flex flex-wrap gap-2 items-start">
@@ -153,6 +185,10 @@
 							<button
 								class="btn bg-base-2"
 								class:bg-primary-4={isEqual(controls.pattern.flat(), pattern.pattern.flat())}
+								class:text-primary-content={isEqual(
+									controls.pattern.flat(),
+									pattern.pattern.flat()
+								)}
 								onclick={() => {
 									controls.pattern = pattern.pattern;
 									controls.colorList = getColor(
@@ -160,74 +196,95 @@
 										controls.colorList[0].toneIndex,
 										pattern.pattern
 									);
-								}}
-							>
+								}}>
 								<Icon icon={pattern.icon} class="w-6 h-6" />
 							</button>
 						{/each}
 					</div>
 				</div>
 				<div class="grid grid-cols-3 place-items-center w-fit gap-2">
-					<div class="font-bold col-span-full justify-self-start mb-2">Behavior:</div>
+					<div class="font-bold col-span-full justify-self-start mb-2">Direction:</div>
 					{#each directions as direction}
 						{#if direction.name === 'reset'}
-							<button
-								class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
-								onclick={() =>
-									themeManager.setTheme(themeManager.theme === 'light' ? 'dark' : 'light')}
-							>
-								<Icon
-									icon={themeManager.theme === 'light' ? 'carbon:asleep' : 'carbon:awake'}
-									class="w-full h-full"
-								/>
-							</button>
+							<div></div>
 						{:else}
 							<button
 								class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
 								class:bg-primary-4={controls.angle === direction.name}
+								class:text-primary-content={controls.angle === direction.name}
 								onclick={() => {
 									controls.angle = direction.name;
 									controls.position = `${direction.positions[0] * 100}% ${direction.positions[1] * 100}% `;
 									controls.positionHover = `${direction.positions[2] * 100}% ${direction.positions[3] * 100}% `;
-								}}><Icon icon={direction.icon} class="w-full h-full" /></button
-							>
+								}}><Icon icon={direction.icon} class="w-full h-full" /></button>
 						{/if}
 					{/each}
+				</div>
 
-					<label class="col-span-full">
-						Size:
-						{controls.size}
-						<input type="range" bind:value={controls.size} min="100" max="800" step="25" />
-					</label>
+				<div class="grid gap-2 col-span-full">
+					<div class="font-bold mb-2">Speed:</div>
+					<div class="flex gap-2">
+						{#each durations as { icon, value }}
+							<button
+								class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
+								class:bg-primary-4={controls.duration === value}
+								class:text-primary-content={controls.duration === value}
+								onclick={() => (controls.duration = value)}>
+								<Icon {icon} class="w-full h-full" />
+							</button>
+						{/each}
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 
-	<div class="grid md:grid-cols-[max-content_1fr] gap-x-8 gap-y-10 px-4 mb-12">
-		<Highlight language="css" code={css} header="The Styles" />
-		<div class="flex flex-col gap-2">
-			<h2 class="text-xl font-bold">How does this work?</h2>
-			<p>We just have a gradient background that is larger than the button.</p>
-			<p>On hover, we transition the <code>background-position</code></p>
-			<button
-				class="w-50 h-50 rounded-lg relative mx-auto my-4"
-				style="background-image: linear-gradient(to {controls.angle},
-        {controls.colorList.map((item) => item.color).join(',\n\t')});"
-				onmouseenter={() => (demo_styles = getHoverStyles())}
-				onmouseleave={() => (demo_styles = getStyles())}
-			>
-				<div
-					class="border px-4 py-2 w-fit rounded-lg absolute font-bold border-2"
-					style="transition-property: left, top, translate; transition-duration: 1s; {demo_styles}; color: {controls.textColor};"
-				>
-					button
+			<div class="flex flex-col gap-2 mb-8">
+				<h2 class="text-xl font-bold">How does this work?</h2>
+				<p>
+					We simply have a gradient background that is larger than the button. On hover, we
+					transition the <code>background-position</code>.
+				</p>
+				<div class="mx-auto my-4 grid gap-4">
+					<p>
+						Try playing around with the relative
+						<code>background-size</code> and see how it affects the button.
+					</p>
+					<div class="flex gap-2 justify-center">
+						{#each sizes as { name, value }}
+							<button
+								class="btn bg-base-2"
+								class:bg-primary-4={controls.size === value}
+								class:text-primary-content={controls.size === value}
+								onclick={() => {
+									controls.size = value;
+								}}>
+								{name}
+							</button>
+						{/each}
+					</div>
+					<button
+						class="rounded-lg relative mx-auto"
+						style={demoButtonStyles}
+						onmouseenter={() => (demo_styles = getHoverStyles())}
+						onmouseleave={() => (demo_styles = getStyles())}>
+						<div
+							class="border w-20 rounded-lg absolute font-bold border-2 grid items-center"
+							style="transition-property: left, top, translate; transition-duration: 1s; {demo_styles}; color: {controls.textColor};
+          width: {button_width}px; height: {button_width / 2}px;">
+							button
+						</div>
+					</button>
 				</div>
-			</button>
-			<p>
-				Depending on the angle wee want to gradient come in from, we sometimes need to adjust the
-				initial and final <code>background-position</code>
-			</p>
+				<p>
+					Notice how setting the size to <b>1x</b> makes the gradient fill the button. <br />
+					In this case there's no space to transition anything.
+				</p>
+				<p>
+					Depending on the gradient angle, we sometimes need to adjust the initial and final <code
+						>background-position</code>
+				</p>
+			</div>
+
+			<Highlight language="css" code={css} header="The Styles" />
 		</div>
 	</div>
 </section>
@@ -240,7 +297,7 @@
 	.brand-gradient {
 		background-position: var(--position);
 		transition-property: background-position, translate;
-		transition-duration: 0.7s, 0.5s;
+		transition-duration: var(--duration), 0.5s;
 	}
 	.brand-gradient:hover {
 		translate: 0 -0.25rem;
