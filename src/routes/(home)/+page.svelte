@@ -125,7 +125,7 @@
 	<meta property="twitter:image" content={image} />
 </svelte:head>
 
-<section class="grid my-14">
+<section class="grid mt-14">
 	<hgroup class="col-span-full mb-8 text-center">
 		<h1
 			class="font-extrabold bg-clip-text text-transparent uppercase tracking-wider"
@@ -301,6 +301,9 @@
 			<Highlight language="css" code={css} header="The Styles" />
 		</div>
 	</div>
+	<a class="mt-14 mb-4 text-center" href="https://github.com/azakiio/nice-buttons" target="_blank">
+		Made with ❤️ by <b>Adham Zaki</b>
+	</a>
 </section>
 
 <style>
