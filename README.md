@@ -1,20 +1,21 @@
-# create-svelte
+# 🎨 NiceButtons
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Generate beautiful gradient hover effects for your buttons with ease!
 
-## Creating a project
+### ✨ Cool Features
+- 🎯 **Simple & Intuitive** – Easily create stunning hover effects with just a few clicks.
+- 🖼️ **Live Preview** – Instantly see how your button will look with real-time updates.
+- 📋 **One-Click Copy** – Copy the generated CSS and use it directly in your projects.
+- ⚙️ **Customizable Gradients** – Tailor your gradient hover effect to match your brand's style.
+- 💻 **Open Source** – Fork it, improve it, or contribute to the project! 
 
-If you're seeing this, you've probably already done this step. Congrats!
+[**Live Demo**](https://nicebuttons.com)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+[<img width="400" alt="meta" src="https://github.com/user-attachments/assets/2be36225-a196-4b24-b96a-037bb726e4b6">](https://nicebuttons.com)
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+---
 
-## Developing
+## 🚀 Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
@@ -25,7 +26,9 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
+---
+
+## 🛠️ Building
 
 To create a production version of your app:
 
@@ -33,6 +36,12 @@ To create a production version of your app:
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+You can preview the production build with:
+
+```bash
+npm run preview
+```
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+---
