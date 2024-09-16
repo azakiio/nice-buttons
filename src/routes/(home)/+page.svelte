@@ -197,6 +197,7 @@
 					<div class="flex flex-wrap gap-2 items-start">
 						{#each patterns as pattern}
 							<button
+								title={pattern.name}
 								class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
 								class:bg-primary-4={isEqual(controls.pattern.flat(), pattern.pattern.flat())}
 								class:text-primary-content={isEqual(
@@ -223,6 +224,7 @@
 							<div></div>
 						{:else}
 							<button
+								title={direction.name}
 								class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
 								class:bg-primary-4={controls.angle === direction.name}
 								class:text-primary-content={controls.angle === direction.name}
@@ -240,6 +242,7 @@
 					<div class="flex gap-2">
 						{#each durations as { icon, value }}
 							<button
+								title={value + 's'}
 								class="btn bg-base-2 w-14 h-14 p-3 rounded-full"
 								class:bg-primary-4={controls.duration === value}
 								class:text-primary-content={controls.duration === value}
@@ -254,8 +257,8 @@
 			<div class="flex flex-col gap-2 mb-8">
 				<h2 class="text-xl font-bold">How does this work?</h2>
 				<p>
-					We simply have a gradient background that is larger than the button. On hover, we
-					transition the <code>background-position</code>.
+					We simply have a gradient <code>background-image</code> that is larger than the button. On
+					hover, we transition the <code>background-position</code>.
 				</p>
 				<div class="mx-auto my-4 grid gap-4">
 					<p>
@@ -289,12 +292,22 @@
 					</button>
 				</div>
 				<p>
+					The effect is subtle, but you can think of it as a <b>zoom factor</b>.
+					<br />
+					Larger numbers makes the individual colors more distinct.
+				</p>
+				<p>
 					Notice how setting the size to <b>1x</b> makes the gradient fill the button. <br />
-					In this case there's no space to transition anything.
+					In this case there's no space to transition anything and you just get a static gradient background.
+				</p>
+				<p>
+					Compare that to <b>5x</b> where the transition is much more pronounced. I think somewhere around
+					3-4x is the sweet spot, depending on what effect you're going for.
 				</p>
 				<p>
 					Depending on the gradient angle, we sometimes need to adjust the initial and final <code
-						>background-position</code>
+						>background-position</code
+					>.
 				</p>
 			</div>
 
